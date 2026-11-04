@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 PawMart: The Serverless Odyssey
 
-## Getting Started
+Platform e-commerce petshop berbasis **Full-Stack Serverless** yang menjual produk hewan: makanan, obat, mainan, dan alat perawatan. Dibuat sebagai proyek perkuliahan.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel_Edge-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📦 Kategori Produk
+
+| Kategori | Contoh |
+|---|---|
+| 🍖 Makanan Hewan | Dry food, wet food, snack |
+| 💊 Obat Hewan | Vitamin, obat cacing, antijamur |
+| 🧸 Mainan Hewan | Bola, tali, scratcher |
+| ✂️ Alat Perawatan | Sisir, shampo, gunting kuku |
+
+## 🏛️ Arsitektur 4 Pilar
+
+| Pilar | Teknologi | Peran |
+|---|---|---|
+| 1. Presentation & Logic | Next.js 16 (App Router) | UI, Server Components, Route Handlers |
+| 2. Data Persistence | Supabase (PostgreSQL) | Database produk, kategori, pesanan, Auth, RLS |
+| 3. Media Delivery | Cloudinary CDN | Penyimpanan & optimasi gambar produk |
+| 4. Hosting & Edge | Vercel Edge Network | Deployment, CI/CD, distribusi global |
+
+```
+Browser ──► Vercel Edge ──► Next.js 16 ──┬──► Supabase (PostgreSQL)
+                                          └──► Cloudinary (gambar)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Setup Lokal
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Prasyarat:** Node.js ≥ 20, Git, akun Supabase & Cloudinary.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# 1. Clone repositori
+git clone https://github.com/<username>/<nama-repo>.git
+cd <nama-repo>
 
-## Learn More
+# 2. Install dependensi
+npm install
 
-To learn more about Next.js, take a look at the following resources:
+# 3. Siapkan environment variable
+cp .env.example .env.local
+# Lalu isi semua nilai di .env.local
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# 4. Jalankan server development
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Buka <http://localhost:3000>.
 
-## Deploy on Vercel
+> ⚠️ **Jangan pernah commit `.env.local`.** Hanya `.env.example` yang boleh masuk repositori.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🌿 Aturan Git Branch (4 Langkah)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Sinkronisasi:** mulai dari `dev` yang terbaru.
+   ```bash
+   git checkout dev && git pull origin dev
+   ```
+2. **Cabang fitur:** buat branch dengan prefix `feature/`, `fix/`, atau `docs/`.
+   ```bash
+   git checkout -b feature/katalog-produk
+   ```
+3. **Commit:** gunakan Conventional Commits.
+   ```bash
+   git commit -m "feat: tambah halaman katalog makanan hewan"
+   ```
+4. **Pull Request:** push, lalu buat PR ke `dev`. Setelah di-review dan lolos, `dev` digabung ke `main` untuk rilis ke Vercel Production.
+
+> 🚫 Dilarang push langsung ke `main`.
+
+## 🔐 Keamanan
+
+- Semua kredensial disimpan di `.env.local` (di-ignore Git) dan di Vercel Environment Variables.
+- `SUPABASE_SERVICE_ROLE_KEY` dan `CLOUDINARY_API_SECRET` hanya boleh dipakai di sisi server.
+- Aktifkan Row Level Security (RLS) pada semua tabel Supabase.
+
+## 📄 Lisensi
+
+Proyek perkuliahan. Hak cipta © 2026.
